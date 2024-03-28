@@ -49,7 +49,10 @@ class BannerForm extends AbstractType
                 'required' => false
             ])
             ->add('showDuration', NumberType::class, [
-                'required' => true
+                'required' => true,
+                'attr' => [
+                    'min' => 1
+                ]
             ])
             ->add('published', CheckboxType::class, [
                 'required' => false
