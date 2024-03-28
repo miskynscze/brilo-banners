@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+    <h1 class="title">Editace reklamního banneru</h1>
+
+    <a href="{{ path('banner_list') }}" class="button is-info">Zpět na seznam bannerů</a>
+    <hr/>
+
+    {{ form_start(form) }}
+        {% if bannerName %}
+            <div class="image is-16by9">
+                <img src="{{ asset('uploads/banners/' ~ bannerName) }}" alt="Banner" width="100%"/>
+            </div>
+        {% endif %}
+        <div class="field">
+            <div class="file has-name">
+                <label class="file-label">
+                    <input class="file-input" type="file" name="{{ field_name(form.file) }}" />
+                    <span class="file-cta">
+                      <span class="file-label">Vybrat soubor</span>
+                    </span>
+                    {% if bannerName %}
+                        <span class="file-name">{{ bannerName }}</span>
+                    {% endif %}
+                </label>
+            </div>
+            <p class="help is-danger">
+                {% for error in field_errors(form.file) %}
+                    {{ error }}<br/>
+                {% endfor %}
+            </p>
+        </div>
+        <div class="field">
+            <label class="label" for="{{ field_name(form.datePublish) }}">Datum viditelnosti od</label>
+            <div class="control">
+                <input
+                        class="input"
+                        name="{{ field_name(form.datePublish) }}"
+                        value="{{ field_value(form.datePublish) }}"
+                        id="{{ field_name(form.datePublish) }}"
+                        type="date">
+            </div>
+        </div>
+        <div class="field">
+            <label class="label" for="{{ field_name(form.dateUnpublish) }}">Datum viditelnosti do</label>
+            <div class="control">
+                <input class="input"
+                       name="{{ field_name(form.dateUnpublish) }}"
+                       value="{{ field_value(form.dateUnpublish) }}"
+                       id="{{ field_name(form.dateUnpublish) }}"
+                       type="date">
+            </div>
+        </div>
+        <div class="field">
+            <label class="label" for="{{ field_name(form.showDuration) }}">Doba viditelnosti</label>
+            <div class="control">
+                <input class="input"
+                       name="{{ field_name(form.showDuration) }}"
+                       value="{{ field_value(form.showDuration) }}"
+                       id="{{ field_name(form.showDuration) }}">
+            </div>
+            <p class="help is-danger">
+                {% for error in field_errors(form.showDuration) %}
+                    {{ error }}<br/>
+                {% endfor %}
+            </p>
+        </div>
+        <div class="field">
+            <div class="control">
+                <label class="checkbox" for="{{ field_name(form.published) }}">
+                    <input class="checkbox"
+                           name="{{ field_name(form.published) }}"
+                           id="{{ field_name(form.published) }}"
+                           {% if form.published %}checked{% endif %}
+                           type="checkbox">
+                    Viditelnost
+                </label>
+            </div>
+        </div>
+        <div class="field is-grouped">
+            <div class="control">
+                <button type="submit" name="{{ field_name(form.save) }}" class="button is-success">Uložit</button>
+            </div>
+            {% if editId %}
+                <div class="control">
+                    <a href="{{ path('banner_delete', {id: editId}) }}" class="button is-danger">Smazat</a>
+                </div>
+            {% endif %}
+        </div>
+    {{ form_end(form) }}
+{% endblock %}
