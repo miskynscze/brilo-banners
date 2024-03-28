@@ -19,3 +19,5 @@ services:
 
     App\System\Upload:
         autowire: true
+        arguments:
+            $directory: '%banners_dir%'

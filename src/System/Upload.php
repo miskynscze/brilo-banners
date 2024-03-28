@@ -7,9 +7,9 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class Upload
 {
 
-    public function __construct(protected SluggerInterface $slugger) {}
+    public function __construct(protected string $directory, protected SluggerInterface $slugger) {}
 
-    public function uploadFile(mixed $data, string $directory): string
+    public function uploadFile(mixed $data): string
     {
         $bannerName = pathinfo($data->getClientOriginalName(), PATHINFO_FILENAME);
 
@@ -17,7 +17,7 @@ class Upload
         $newBannerName = $curedName . '-' . uniqid() . '-' . $data->guessExtension();
 
         $data->move(
-            $directory,
+            $this->directory,
             $newBannerName
         );
 
