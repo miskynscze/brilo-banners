@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+    <h1 class="title">Přehled reklamních bannerů</h1>
+
+    <a href="{{ path('banner_edit') }}" class="button is-primary">Přidat nový banner</a>
+    <hr/>
+
+    <table class="table is-fullwidth is-striped">
+        <thead>
+            <tr>
+                <th>Cesta k souboru</th>
+                <th>Datum nahrání</th>
+                <th>Viditelnost od</th>
+                <th>Viditelnost do</th>
+                <th>Doba viditelnosti</th>
+                <th>Viditelnost</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for banner in banners %}
+                <tr>
+                    <td>{{ banner.file }}</td>
+                    <td>{{ banner.dateUploaded|date("d.m.Y") }}</td>
+                    <td>{{ banner.datePublish|date("d.m.Y") }}</td>
+                    <td>{{ banner.dateUnpublish|date("d.m.Y") }}</td>
+                    <td>{{ banner.showDuration }}s</td>
+                    <td>
+                        {% if banner.published %}
+                            <span class="tag is-success">Viditelný</span>
+                        {% else %}
+                            <span class="tag is-danger">Neviditelný</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ path('banner_edit', {id: banner.id}) }}" class="button is-info is-small">Edit</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
