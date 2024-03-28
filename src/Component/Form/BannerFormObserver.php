@@ -5,6 +5,7 @@ namespace App\Component\Form;
 use App\Entity\Banner;
 use App\System\Upload;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 
 class BannerFormObserver

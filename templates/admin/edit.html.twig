@@ -17,7 +17,11 @@
         <div class="field">
             <div class="file has-name">
                 <label class="file-label">
-                    <input class="file-input" type="file" name="{{ field_name(form.file) }}" />
+                    <input
+                            class="file-input"
+                            type="file"
+                            name="{{ field_name(form.file) }}"
+                            {% if form.file.vars.required %}required{% endif %} />
                     <span class="file-cta">
                       <span class="file-label">Vybrat soubor</span>
                     </span>

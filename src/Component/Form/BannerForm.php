@@ -19,8 +19,11 @@ class BannerForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Banner::class
+            'data_class' => Banner::class,
+            'require_file' => false
         ]);
+
+        $resolver->setAllowedTypes('require_file', 'bool');
 
         parent::configureOptions($resolver);
     }
@@ -30,6 +33,7 @@ class BannerForm extends AbstractType
         $builder
             ->add('file', FileType::class, [
                 'mapped' => false,
+                'required' => $options['require_file'],
                 'constraints' => [
                     new File([
                         'mimeTypes' => [

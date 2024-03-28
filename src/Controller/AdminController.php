@@ -8,6 +8,7 @@ use App\Entity\Banner;
 use App\System\Upload;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,11 +35,14 @@ class AdminController extends AbstractController
             $banner = $bannerFormObserver->getBannerData($id);
         }
 
-        $form = $this->createForm(BannerForm::class, $banner);
+        $form = $this->createForm(BannerForm::class, $banner, [
+            'require_file' => !$id
+        ]);
+
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $bannerFormObserver->observe($form, $this->getParameter("banners_dir"));
+            $bannerFormObserver->observe($form, $this->getParameter("banners_dir"), $id);
 
             return $this->redirectToRoute('banner_edit', [
                 'id' => $banner->getId()

@@ -30,7 +30,7 @@ class Banner
     private ?\DateTimeInterface $date_unpublish = null;
 
     #[ORM\Column]
-    private ?int $show_duration = null;
+    private ?int $show_duration = 10;
 
     public function getId(): ?int
     {
