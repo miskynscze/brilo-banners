@@ -23,4 +23,11 @@ class Upload
 
         return $newBannerName;
     }
+
+    public function removeFile(string $filePath): void
+    {
+        if(file_exists($filePath)) {
+            unlink($filePath);
+        }
+    }
 }

@@ -73,7 +73,7 @@
                     <input class="checkbox"
                            name="{{ field_name(form.published) }}"
                            id="{{ field_name(form.published) }}"
-                           {% if form.published %}checked{% endif %}
+                           {% if form.published.vars.checked %}checked{% endif %}
                            type="checkbox">
                     Viditelnost
                 </label>

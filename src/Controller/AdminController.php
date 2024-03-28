@@ -53,9 +53,15 @@ class AdminController extends AbstractController
     }
 
     #[Route('/admin/delete/{id}', 'banner_delete')]
-    public function deleteBanner(int $id, EntityManagerInterface $entityManager): RedirectResponse
+    public function deleteBanner(int $id, EntityManagerInterface $entityManager, Upload $upload): RedirectResponse
     {
         $banner = $entityManager->getRepository(Banner::class)->find($id);
+
+        if(!$banner) {
+            return $this->redirectToRoute('banner_list');
+        }
+
+        $upload->removeFile($this->getParameter("banners_dir") . '/' . $banner->getFile());
 
         $entityManager->remove($banner);
         $entityManager->flush();
